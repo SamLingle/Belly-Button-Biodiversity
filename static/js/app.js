@@ -10,21 +10,35 @@ function buildMetadata(sample) {
 
     // Use `.html("") to clear any existing metadata
     sample_metadata.html("");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
 
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new
     // tags for each key-value in the metadata.
+<<<<<<< HEAD
     Object.entries(sample).forEach(function ([key, value]) {
       var row = sample_metadata.append("p");
       row.text(`${key}: ${value}`);
     });
   });
 };
+=======
+    Object.defineProperties(sample).forEach(function([key, value]) {
+      var row = sample_metadata.append("p");
+      row.text(`${key}: ${value}`);
+    });
+    // BONUS: Build the Gauge Chart
+    // buildGauge(data.WFREQ);
+}
+>>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
 
 function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
+<<<<<<< HEAD
   var url = `/samples/${sample}`;
   d3.json(url).then(function(data) {
 
@@ -35,6 +49,17 @@ function buildCharts(sample) {
     var m_colors = data.otu_ids; 
     var t_values = data.otu_labels;
 
+=======
+  var url = `/sample/${sample}`;
+  d3.json(url).then(function(data) {
+    // @TODO: Build a Bubble Chart using the sample data
+    var x_values = data.otu_ids
+    var y_values = data.sample_values;
+    var m_size = data.sample_values;
+    var m_colors = data.otu_ids;
+    var t_values = data.otu_labels;
+    
+>>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
     var trace1 = {
       x: x_values,
       y: y_values,
@@ -43,6 +68,7 @@ function buildCharts(sample) {
       marker: {
         color: m_colors,
         size: m_size
+<<<<<<< HEAD
       } 
     };
   
@@ -54,8 +80,21 @@ function buildCharts(sample) {
 
     Plotly.newPlot('bubble', data, layout);
    
+=======
+      }
+    };
 
+    var data = [trace1];
+
+    var layout = {
+      xaxis: {title : "OTU ID"},
+    };
+>>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
+
+    Plotly.newPlot('bubble', data, layout);
+    
     // @TODO: Build a Pie Chart
+<<<<<<< HEAD
     d3.json(url).then(function(data) {  
     var pie_values = data.sample_values.slice(0,10);
       var pie_labels = data.otu_ids.slice(0,10);
@@ -64,6 +103,18 @@ function buildCharts(sample) {
       var data = [{
         values: pie_values,
         labels: pie_labels,
+=======
+    // HINT: You will need to use slice() to grab the top 10 sample_values,
+    // otu_ids, and labels (10 each).
+    d3.json(url).then(function(data) {
+      var pie_values = data.sample_values.slice(0, 10);
+      var pie_labels = data.otu_ids.slice(0, 10);
+      var pie_hover = data.otu_labels.slice(0, 10);
+
+      var data = [{
+        values: pie_values,
+        lables: pie_labels,
+>>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
         hovertext: pie_hover,
         type: 'pie'
       }];
@@ -71,7 +122,12 @@ function buildCharts(sample) {
       Plotly.newPlot('pie', data);
 
     });
+<<<<<<< HEAD
   });   
+=======
+  });
+    
+>>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
 }
 
 
