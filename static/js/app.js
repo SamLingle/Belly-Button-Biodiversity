@@ -2,56 +2,36 @@ function buildMetadata(sample) {
 
   // @TODO: Complete the following function that builds the metadata panel
 
-function buildMetadata(sample) {
-
-  // @TODO: Complete the following function that builds the metadata panel
-
   // Use `d3.json` to fetch the metadata for a sample
   var url = `/metadata/${sample}`;
-  d3.json(url).then(function(sample) {
+  d3.json(url).then(function(sample){
     // Use d3 to select the panel with id of `#sample-metadata`
     var sample_metadata = d3.select("#sample-metadata");
 
     // Use `.html("") to clear any existing metadata
     sample_metadata.html("");
-<<<<<<< HEAD
 
-=======
->>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
 
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new
     // tags for each key-value in the metadata.
-<<<<<<< HEAD
-<<<<<<< HEAD
     Object.entries(sample).forEach(function ([key, value]) {
       var row = sample_metadata.append("p");
       row.text(`${key}: ${value}`);
-    });
-  });
-};
-=======
-    Object.defineProperties(sample).forEach(function([key, value]) {
-      var row = sample_metadata.append("p");
-      row.text(`${key}: ${value}`);
-    });
+
+      console.log(key);
+      console.log(value);
+    
     // BONUS: Build the Gauge Chart
     // buildGauge(data.WFREQ);
-}
->>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
-=======
-    Object.entries(sample).forEach(function ([key, value]) {
-      var row = sample_metadata.append("p");
-      row.text(`${key}: ${value}`);
-    });
-  });
-};
->>>>>>> 148fabfa5e5522233d88e06b91ed5b9c8892c289
+
+});
+  }
+)};
 
 function buildCharts(sample) {
 
   // @TODO: Use `d3.json` to fetch the sample data for the plots
-<<<<<<< HEAD
   var url = `/samples/${sample}`;
   d3.json(url).then(function(data) {
 
@@ -62,17 +42,6 @@ function buildCharts(sample) {
     var m_colors = data.otu_ids; 
     var t_values = data.otu_labels;
 
-=======
-  var url = `/sample/${sample}`;
-  d3.json(url).then(function(data) {
-    // @TODO: Build a Bubble Chart using the sample data
-    var x_values = data.otu_ids
-    var y_values = data.sample_values;
-    var m_size = data.sample_values;
-    var m_colors = data.otu_ids;
-    var t_values = data.otu_labels;
-    
->>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
     var trace1 = {
       x: x_values,
       y: y_values,
@@ -81,7 +50,6 @@ function buildCharts(sample) {
       marker: {
         color: m_colors,
         size: m_size
-<<<<<<< HEAD
       } 
     };
   
@@ -93,54 +61,30 @@ function buildCharts(sample) {
 
     Plotly.newPlot('bubble', data, layout);
    
-=======
-      }
-    };
 
-    var data = [trace1];
-
-    var layout = {
-      xaxis: {title : "OTU ID"},
-    };
->>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
-
-    Plotly.newPlot('bubble', data, layout);
-    
     // @TODO: Build a Pie Chart
-<<<<<<< HEAD
+    // HINT: You will need to use slice() to grab the top 10 sample_values,
+    // otu_ids, and labels (10 each).
+
     d3.json(url).then(function(data) {  
-    var pie_values = data.sample_values.slice(0,10);
+      var pie_values = data.sample_values.slice(0,10);
       var pie_labels = data.otu_ids.slice(0,10);
       var pie_hover = data.otu_labels.slice(0,10);
 
       var data = [{
         values: pie_values,
         labels: pie_labels,
-=======
-    // HINT: You will need to use slice() to grab the top 10 sample_values,
-    // otu_ids, and labels (10 each).
-    d3.json(url).then(function(data) {
-      var pie_values = data.sample_values.slice(0, 10);
-      var pie_labels = data.otu_ids.slice(0, 10);
-      var pie_hover = data.otu_labels.slice(0, 10);
-
-      var data = [{
-        values: pie_values,
-        lables: pie_labels,
->>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
         hovertext: pie_hover,
         type: 'pie'
       }];
-
+      
+      console.log(pie_values);
+      console.log(pie_labels);
+      console.log(pie_hover);
       Plotly.newPlot('pie', data);
 
     });
-<<<<<<< HEAD
   });   
-=======
-  });
-    
->>>>>>> 4b33837b76dbc2fba6974566eedd89e62f0baed6
 }
 
 
@@ -161,6 +105,8 @@ function init() {
     const firstSample = sampleNames[0];
     buildCharts(firstSample);
     buildMetadata(firstSample);
+
+    console.log(firstSample)
   });
 }
 
@@ -168,6 +114,8 @@ function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
   buildCharts(newSample);
   buildMetadata(newSample);
+
+  console.log(newSample);
 }
 
 // Initialize the dashboard
