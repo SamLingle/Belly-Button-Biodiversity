@@ -52,9 +52,27 @@ function buildCharts(sample) {
     };
 
     Plotly.newPlot('bubble', data, layout);
+    
     // @TODO: Build a Pie Chart
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
+    d3.json(url).then(function(data) {
+      var pie_values = data.sample_values.slice(0, 10);
+      var pie_labels = data.otu_ids.slice(0, 10);
+      var pie_hover = data.otu_labels.slice(0, 10);
+
+      var data = [{
+        values: pie_values,
+        lables: pie_labels,
+        hovertext: pie_hover,
+        type: 'pie'
+      }];
+
+      Plotly.newPlot('pie', data);
+
+    });
+  });
+    
 }
 
 function init() {
