@@ -18,8 +18,8 @@ function buildMetadata(sample) {
     Object.entries(sample).forEach(function ([key, value]) {
       var row = sample_metadata.append("p");
       row.text(`${key}: ${value}`);
-    })
-  })
+    });
+  });
 };
 
 function buildCharts(sample) {
