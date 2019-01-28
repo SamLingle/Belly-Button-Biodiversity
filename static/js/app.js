@@ -4,7 +4,7 @@ function buildMetadata(sample) {
 
   // Use `d3.json` to fetch the metadata for a sample
   var url = `/metadata/${sample}`;
-  d3.json(url).then(function(sample){
+  d3.json(url).then(function(sample) {
     // Use d3 to select the panel with id of `#sample-metadata`
     var sample_metadata = d3.select("#sample-metadata");
 
@@ -18,10 +18,9 @@ function buildMetadata(sample) {
     Object.entries(sample).forEach(function ([key, value]) {
       var row = sample_metadata.append("p");
       row.text(`${key}: ${value}`);
-
-});
-  }
-)};
+    })
+  })
+};
 
 function buildCharts(sample) {
 
